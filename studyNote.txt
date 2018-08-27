@@ -1,0 +1,61 @@
+
+	⁃	Target/Action and Outlets and Outlet Collections
+	⁃	Methods and Properties ( instance variables )
+	⁃	Property Observer (didset)
+	⁃	array<Element>
+	⁃	MVC
+	⁃	Value Type (struct) VS reference types (class)
+	⁃	initializers
+	⁃	Type (static) methods
+	⁃	lazy properties
+	⁃	for in loops
+	⁃	Dictionary<key,value>
+	⁃	Type conversion 
+	⁃	for i in stride(from: 0.5, through:15.25, by: 0.3 )
+	⁃	Computed Properties
+	⁃	Autolayout
+	⁃	Access Control ( 접근 제어 )
+	⁃	Assert
+	⁃	Extensions
+	⁃	Optionals
+	⁃	tuple
+
+Extensions 
+: 확장을 통해, 변수와 함수를 다른 클래스에 추가할 수 있음.
+ 단, 값을. 저장하는 형태가 아님, ( 저장공간을 따로 필요로 하지 않음 ) ( 참고 - ViewController.swift )
+
+Assert : API를 부적절한 사용으로부터 보호하기 위함
+ex.)
+assert(성립되어야하는 조건 , “조건에 해당하지 않을 때, 오류메시지”)
+
+Access Control 
+:
+internal (default ) - 앱이나 프레임워크의 모든 요소가 접근 가능한 코드
+private : 내부에서만 구현되는 모델,메소드,변수는 거의 private설정하면 됨.
+private(set) : 외부에서 set은 불가능하지만, 불러오는것은 가능 
+fileprivate : 서로의 메소드나 변수를 불러올 수 있음.
+
+
+tuple 
+: 메소드나 변수가 없는 소형 구조체로 값만 들어있음.
+요소의 이름을 유연하게 정할 수 있음.
+
+ex:
+ let x : (String, Int, Double) = (“hello”, 5, 0.85) 
+ let (word, number, value) = x 
+ print(word) -> hello.
+ print(number) -> 5
+ print(value) -> 0.85
+
+ex:
+ let x: (w: String, i: Int, v: Double) = (“hello”, 5, 0.85)
+ print(x.w) > hello
+ print(x.i) > 5
+
+ex: 
+ func getSize() -> (weight: Double, height: Double) 
+{ return (250,80) }
+
+ let x = getSize()
+ print(“weight is \(x.weight)”)
+
