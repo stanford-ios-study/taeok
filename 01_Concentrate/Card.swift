@@ -15,8 +15,14 @@ import Foundation
 
 
 // 모델을 만들 때, 주의할점 : 모델은 모델일뿐, 객체가 가지는 속성값을 넣으면 안됨.
-struct Card
+struct Card: Hashable
 {
+    var hashValue: Int {return identifier}
+    
+    static func ==(lhs: Card, rhs:Card) -> Bool {
+        return lhs.identifier == rhs.identifier
+    }
+    
     var isFaceUp = false
     var isMatched = false
     var identifier: Int

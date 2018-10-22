@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     @IBAction func ResetButton(_ sender: UIButton) {
         game = Concentration(numberOfPairsOfCards: (cardButtons.count+1)/2 )
-        emojiChoices = ["🦇", "😱", "🙀", "👿", "🎃", "👻", "🍭", "🍬", "🍎"]
+        emojiChoices = "🦇😱🙀👿🎃👻🍭🍬🍎"
         updateViewFromModel()
         flipCount = 0
     }
@@ -32,8 +32,18 @@ class ViewController: UIViewController {
 
     private(set) var flipCount:Int = 0 {
         didSet {
-            flipCountLabel.text = "Flips : \(flipCount)"
+            updateFlipCountLabel()
         }
+    }
+    
+    private func updateFlipCountLabel() {
+        let attributes: [NSAttributedStringKey: Any] = [
+            .strokeWidth : 5.0,
+            .strokeColor : #colorLiteral(red: 0.9529411793, green: 0.6862745285, blue: 0.1333333403, alpha: 1)
+        ]
+        let attributedString = NSAttributedString(string: "Flips : \(flipCount)", attributes: attributes)
+        
+        flipCountLabel.attributedText = attributedString
     }
     
     
@@ -41,7 +51,12 @@ class ViewController: UIViewController {
     // UIButton의 배열
     // 배열을 만들땐, 변수형을 꼭 명시해주어야 함.
     
-    @IBOutlet private weak var flipCountLabel: UILabel!
+    @IBOutlet private weak var flipCountLabel: UILabel! {
+        didSet {
+            updateFlipCountLabel()
+        }
+    }
+    
     
     @IBAction private func touchCard(_ sender: UIButton) {
         print("First Card")
@@ -74,16 +89,17 @@ class ViewController: UIViewController {
         }
     }
     
-    private var emojiChoices = ["🦇", "😱", "🙀", "👿", "🎃", "👻", "🍭", "🍬", "🍎"]
+    //private var emojiChoices = ["🦇", "😱", "🙀", "👿", "🎃", "👻", "🍭", "🍬", "🍎"]
+    private var emojiChoices = "🦇😱🙀👿🎃👻🍭🍬🍎"
     
-    private var emoji = [Int:String]() //59분
+    private var emoji = [Card:String]() //59분
     
     private func emoji(for card: Card) -> String {
-        if emoji[card.identifier] == nil, emojiChoices.count > 0 {
-            
-            emoji[card.identifier] = emojiChoices.remove(at: emojiChoices.count.arc4random) // 이모티콘 딕셔너리에서 이모티콘을 가져오는동시에 딕셔너리에 있는 이모티콘을 지움, 이유는 같은 이모티콘의 카드가 존재할 수 있기 때문에.
+        if emoji[card] == nil, emojiChoices.count > 0 {
+            let randomStringIndex = emojiChoices.index(emojiChoices.startIndex, offsetBy: emojiChoices.count.arc4random)
+                emoji[card] = String(emojiChoices.remove(at: randomStringIndex))
         }
-        return emoji[card.identifier] ?? "?"
+        return emoji[card] ?? "?"
     }
     
     
